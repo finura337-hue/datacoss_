@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CO-WEEK ACADEMY 참가자 안전서약서</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans KR',Apple SD Gothic Neo,sans-serif;background:#f5f5f5;color:#111;font-size:15px}
+.wrap{max-width:680px;margin:0 auto;padding:1.5rem 1rem 4rem}
+h1{font-size:20px;font-weight:700;margin-bottom:4px;color:#111}
+.sub{font-size:13px;color:#666;margin-bottom:1.5rem}
+.card{background:#fff;border:1px solid #e0e0e0;border-radius:12px;padding:1.25rem;margin-bottom:1rem}
+.card h2{font-size:14px;font-weight:700;color:#111;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #eee}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.field{display:flex;flex-direction:column;gap:4px}
+.field label{font-size:12px;color:#666;font-weight:600}
+.field input{font-size:14px;padding:8px 10px;border:1px solid #ddd;border-radius:8px;background:#fff;color:#111;width:100%}
+.field input:focus{outline:none;border-color:#185FA5}
+.full{grid-column:1/-1}
+.consent-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px}
+.consent-box{border:1px solid #e8e8e8;border-radius:8px;padding:10px 12px;background:#fafafa}
+.consent-box p{font-size:11.5px;color:#666;margin-bottom:8px;line-height:1.55}
+.consent-box strong{font-size:12px;color:#111;font-weight:700;display:block;margin-bottom:4px}
+.radio-group{display:flex;gap:12px}
+.radio-group label{font-size:13px;display:flex;align-items:center;gap:5px;cursor:pointer;color:#111}
+.ot-check{display:flex;align-items:flex-start;gap:10px;padding:12px;background:#f0f7ff;border-radius:8px;border:1px solid #c8dff5}
+.ot-check label{font-size:13px;color:#111;cursor:pointer;line-height:1.5}
+.pledge-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.pledge-list li{font-size:13px;color:#333;line-height:1.65;padding:9px 12px;background:#f8f8f8;border-radius:8px;display:flex;gap:8px}
+.pledge-list li strong{color:#185FA5;font-weight:700;flex-shrink:0}
+.sig-wrap{border:1px solid #ccc;border-radius:8px;overflow:hidden}
+canvas#sigCanvas{display:block;width:100%;height:180px;cursor:crosshair;touch-action:none;background:#fff}
+.sig-actions{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#f5f5f5;border-top:1px solid #e5e5e5}
+.sig-actions span{font-size:12px;color:#888}
+button.clear-btn{font-size:12px;padding:5px 12px;border:1px solid #ccc;border-radius:6px;background:#fff;color:#333;cursor:pointer}
+.date-row{display:flex;align-items:center;gap:8px;margin-top:14px;font-size:14px;color:#111}
+.date-row input{width:60px;text-align:center;font-size:14px;padding:6px;border:1px solid #ddd;border-radius:8px;color:#111}
+.step-indicator{display:flex;gap:6px;margin-bottom:1.5rem;flex-wrap:wrap}
+.step{font-size:12px;padding:5px 14px;border-radius:20px;border:1px solid #ddd;color:#999;background:#f0f0f0;font-weight:600}
+.step.active{background:#dceeff;color:#185FA5;border-color:#a8ccf0}
+.step.done{background:#e4f4e6;color:#2d7a35;border-color:#a8d9ac}
+.btn-primary{display:block;width:100%;padding:13px;font-size:15px;font-weight:700;background:#185FA5;color:#fff;border:none;border-radius:10px;cursor:pointer;margin-top:1rem;letter-spacing:-0.2px}
+.btn-primary:hover{background:#0C447C}
+.btn-primary:disabled{background:#ccc;color:#999;cursor:not-allowed}
+.btn-back{background:#f0f0f0;color:#333;border:1px solid #ddd}
+.btn-back:hover{background:#e5e5e5}
+.success-box{text-align:center;padding:2rem 1rem}
+.check-icon{font-size:56px;margin-bottom:12px}
+.success-box h2{font-size:20px;font-weight:700;margin-bottom:8px}
+.success-box p{font-size:14px;color:#555;margin-bottom:1.5rem;line-height:1.7}
+.btn-google{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:#185FA5;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;letter-spacing:-0.2px}
+.btn-google:hover{background:#0C447C}
+.btn-redown{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:#fff;color:#333;border:1px solid #ddd;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;margin-top:10px}
+.notice{font-size:12.5px;color:#555;margin-top:14px;line-height:1.7;background:#f8f8f8;padding:12px 14px;border-radius:8px;border:1px solid #e5e5e5;text-align:left}
+.notice strong{color:#185FA5}
+.btn-row{display:flex;gap:8px}
+.btn-row .btn-primary{margin-top:1rem}
+@media(max-width:480px){
+  .row,.consent-row{grid-template-columns:1fr}
+  .full{grid-column:auto}
+}
+/* PDF 렌더링용 숨김 캔버스 */
+#pdfRender{position:fixed;left:-9999px;top:-9999px;background:#fff}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="wrap">
+  <div class="step-indicator">
+    <span class="step active" id="s1">① 인적사항</span>
+    <span class="step" id="s2">② 동의·서약</span>
+    <span class="step" id="s3">③ 서명</span>
+    <span class="step" id="s4">④ 완료</span>
+  </div>
+
+  <!-- PAGE 1 -->
+  <div id="page1">
+    <h1>CO-WEEK ACADEMY</h1>
+    <p class="sub">참가자 안전서약서 — 아래 정보를 정확히 입력해 주세요.</p>
+    <div class="card">
+      <h2>참가자 인적사항</h2>
+      <div class="row">
+        <div class="field full">
+          <label>컨소시엄 소속 (대학명)</label>
+          <input id="univ" type="text" placeholder="○○대학교">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>성명</label>
+          <input id="name" type="text" placeholder="홍길동">
+        </div>
+        <div class="field">
+          <label>생년월일</label>
+          <input id="birth" type="text" placeholder="2000/01/01">
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>연락처</label>
+          <input id="phone" type="tel" placeholder="010-0000-0000">
+        </div>
+        <div class="field">
+          <label>비상연락처 [관계]</label>
+          <input id="emergency" type="text" placeholder="010-0000-0000 [부모님]">
+        </div>
+      </div>
+      <div class="field">
+        <label>기저질환 / 알레르기</label>
+        <div style="display:flex;gap:14px;margin-top:6px;align-items:center;flex-wrap:wrap">
+          <label style="font-size:13px;display:flex;align-items:center;gap:5px;cursor:pointer"><input type="radio" name="disease" value="없음" checked> 없음</label>
+          <label style="font-size:13px;display:flex;align-items:center;gap:5px;cursor:pointer"><input type="radio" name="disease" value="있음"> 있음</label>
+          <input id="diseaseDetail" type="text" placeholder="있는 경우 상세 기재" style="flex:1;min-width:160px;font-size:13px;padding:7px 10px;border:1px solid #ddd;border-radius:8px;color:#111">
+        </div>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="goPage2()">다음 → 동의 및 서약</button>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div id="page2" style="display:none">
+    <h1>동의 및 서약 확인</h1>
+    <p class="sub">아래 내용을 확인하고 동의 여부를 선택해 주세요.</p>
+    <div class="card">
+      <h2>OT 영상 시청 확인</h2>
+      <div class="ot-check">
+        <input type="checkbox" id="otCheck" style="width:17px;height:17px;cursor:pointer;flex-shrink:0;margin-top:1px">
+        <label for="otCheck">COSS 공식 유튜브 채널에 게시된 코위크아카데미 OT 영상을 시청하였으며, 안내된 주요 안전 수칙과 공지 사항을 전적으로 숙지하고 준수할 것을 서약합니다.</label>
+      </div>
+    </div>
+    <div class="card">
+      <h2>개인정보 수집·이용 동의</h2>
+      <div class="consent-row">
+        <div class="consent-box">
+          <strong>개인정보 수집·이용 동의</strong>
+          <p>수집 목적: 행사 참가자 본인 확인, 안전교육 안내 및 전반적인 행사 운영<br>수집항목: 성명, 연락처, 소속, 생년월일, 비상연락처 등</p>
+          <div class="radio-group">
+            <label><input type="radio" name="consent1" value="동의함"> 동의함</label>
+            <label><input type="radio" name="consent1" value="동의하지않음"> 동의하지 않음</label>
+          </div>
+        </div>
+        <div class="consent-box">
+          <strong>민감정보 수집·이용 동의</strong>
+          <p>수집 목적: 식음료 제공 시 알레르기 사고 예방 및 응급 상황 발생 시 신속한 안전 조치<br>수집항목: 기저질환 여부, 알레르기 유무</p>
+          <div class="radio-group">
+            <label><input type="radio" name="consent2" value="동의함"> 동의함</label>
+            <label><input type="radio" name="consent2" value="동의하지않음"> 동의하지 않음</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>서약 내용</h2>
+      <ul class="pledge-list">
+        <li><strong>1.</strong> [공식 일정 준수] 행사 기간 중 주최 측의 안내 및 통제에 적극 협조하며, 공식 일정 외의 무단이탈 및 개별 행동을 하지 않겠습니다.</li>
+        <li><strong>2.</strong> [교통 및 이동 안전] 단체 이동 시 지정된 차량 및 동선을 준수하며, 개인차량 개별 이동이나 외부 무단 외출로 인해 발생하는 사고에 대한 책임은 본인에게 있음을 인정합니다.</li>
+        <li><strong>3.</strong> [숙소 및 야간 안전] 야간 소란 행위, 타인 숙소 무단 침입 등 타인에게 피해를 주는 행동을 하지 않으며, 배정된 숙소의 이용 규칙을 철저히 준수하겠습니다.</li>
+        <li><strong>4.</strong> [음주 및 규율 엄수] 행사 기간 중 과도한 음주, 도박, 폭력 등 안전을 위협하거나 대학생의 본분에 어긋나는 행위를 하지 않겠습니다.</li>
+        <li><strong>5.</strong> [비상 상황 보고] 본인 또는 동료에게 건강상의 이상 징후(발열, 부상, 급체 등)나 안전사고 발생 시, 인솔책임자 선생님에게 즉시 보고하겠습니다.</li>
+        <li><strong>6.</strong> [면책 조항 확인] 학교 측의 정당한 지시 및 안전 수칙을 위반하거나, 개인의 고의 또는 과실로 인해 발생한 사고·물품 분실에 대해서는 본인이 전적으로 책임을 지며 주최/학교 측에 이의를 제기하지 않겠습니다.</li>
+      </ul>
+    </div>
+    <div class="btn-row">
+      <button class="btn-primary btn-back" onclick="goPage1()">← 이전</button>
+      <button class="btn-primary" onclick="goPage3()">다음 → 서명하기</button>
+    </div>
+  </div>
+
+  <!-- PAGE 3 -->
+  <div id="page3" style="display:none">
+    <h1>서명</h1>
+    <p class="sub">아래 서명란에 마우스 또는 손가락으로 직접 서명해 주세요.</p>
+    <div class="card">
+      <h2>서약자 서명</h2>
+      <div class="sig-wrap">
+        <canvas id="sigCanvas"></canvas>
+        <div class="sig-actions">
+          <span>마우스 드래그 또는 손가락 터치로 서명</span>
+          <button class="clear-btn" onclick="clearSig()">↺ 지우기</button>
+        </div>
+      </div>
+      <div class="date-row">
+        <span style="font-weight:700">2026년</span>
+        <input id="signMonth" type="number" min="1" max="12" placeholder="월">
+        <span style="font-weight:700">월</span>
+        <input id="signDay" type="number" min="1" max="31" placeholder="일">
+        <span style="font-weight:700">일</span>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-primary btn-back" onclick="goPage2()">← 이전</button>
+      <button class="btn-primary" id="genBtn" onclick="generatePDF()">📄 PDF 생성 및 다운로드</button>
+    </div>
+  </div>
+
+  <!-- PAGE 4 -->
+  <div id="page4" style="display:none">
+    <div class="card success-box">
+      <div class="check-icon">✅</div>
+      <h2>서약서 PDF가 생성되었습니다!</h2>
+      <p>PDF 파일이 다운로드되었습니다.<br>아래 버튼을 눌러 구글 폼으로 이동 후<br>PDF 파일을 업로드하고 제출을 완료해 주세요.</p>
+      <a href="https://forms.gle/o3rgNpfwChqjzXH66" target="_blank" class="btn-google">📋 구글 폼에서 PDF 제출하기 ↗</a>
+      <br>
+      <button class="btn-redown" onclick="redownload()">⬇ PDF 다시 다운로드</button>
+      <div class="notice">
+        <strong>제출 순서 안내</strong><br>
+        ① 위 버튼을 눌러 구글 폼 접속<br>
+        ② 파일 업로드 항목에서 다운로드된 PDF 선택<br>
+        ③ 제출 버튼 클릭 → 완료!<br><br>
+        저장된 파일명: <strong id="pdfFilename" style="color:#185FA5"></strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PDF 렌더링용 숨김 캔버스 -->
+<canvas id="pdfRender"></canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+const FORM_URL = 'https://forms.gle/o3rgNpfwChqjzXH66';
+let formData = {};
+let hasSignature = false;
+let sigCanvas, sigCtx, drawing = false;
+let savedDoc = null;
+
+function setStep(n) {
+  for (let i = 1; i <= 4; i++) {
+    const el = document.getElementById('s' + i);
+    el.className = 'step' + (i === n ? ' active' : i < n ? ' done' : '');
+  }
+}
+
+function goPage1() {
+  show('page1'); hide('page2'); setStep(1);
+}
+
+function goPage2() {
+  const univ = v('univ'), name = v('name'), birth = v('birth'), phone = v('phone');
+  if (!univ || !name || !birth || !phone) { alert('소속, 성명, 생년월일, 연락처는 필수입니다.'); return; }
+  formData.univ = univ; formData.name = name; formData.birth = birth;
+  formData.phone = phone; formData.emergency = v('emergency');
+  const dr = document.querySelector('input[name="disease"]:checked');
+  formData.disease = dr ? dr.value : '없음';
+  if (formData.disease === '있음') {
+    const detail = v('diseaseDetail');
+    formData.disease = '있음' + (detail ? ': ' + detail : '');
+  }
+  hide('page1'); show('page2'); setStep(2);
+}
+
+function goPage3() {
+  const ot = document.getElementById('otCheck').checked;
+  const c1 = document.querySelector('input[name="consent1"]:checked');
+  const c2 = document.querySelector('input[name="consent2"]:checked');
+  if (!ot) { alert('OT 영상 시청 확인을 체크해 주세요.'); return; }
+  if (!c1) { alert('개인정보 수집·이용 동의를 선택해 주세요.'); return; }
+  if (!c2) { alert('민감정보 수집·이용 동의를 선택해 주세요.'); return; }
+  formData.otCheck = ot; formData.consent1 = c1.value; formData.consent2 = c2.value;
+  hide('page2'); show('page3'); setStep(3);
+  initCanvas();
+}
+
+function v(id) { return document.getElementById(id).value.trim(); }
+function show(id) { document.getElementById(id).style.display = ''; }
+function hide(id) { document.getElementById(id).style.display = 'none'; }
+
+function initCanvas() {
+  sigCanvas = document.getElementById('sigCanvas');
+  const dpr = window.devicePixelRatio || 1;
+  const rect = sigCanvas.getBoundingClientRect();
+  sigCanvas.width = rect.width * dpr;
+  sigCanvas.height = 180 * dpr;
+  sigCtx = sigCanvas.getContext('2d');
+  sigCtx.scale(dpr, dpr);
+  sigCtx.strokeStyle = '#111';
+  sigCtx.lineWidth = 2.2;
+  sigCtx.lineCap = 'round';
+  sigCtx.lineJoin = 'round';
+  sigCanvas.addEventListener('mousedown', startDraw);
+  sigCanvas.addEventListener('mousemove', draw);
+  sigCanvas.addEventListener('mouseup', endDraw);
+  sigCanvas.addEventListener('mouseleave', endDraw);
+  sigCanvas.addEventListener('touchstart', e => { e.preventDefault(); startDraw(e.touches[0]); }, { passive: false });
+  sigCanvas.addEventListener('touchmove', e => { e.preventDefault(); draw(e.touches[0]); }, { passive: false });
+  sigCanvas.addEventListener('touchend', endDraw, { passive: false });
+}
+
+function getPos(e) {
+  const r = sigCanvas.getBoundingClientRect();
+  return { x: e.clientX - r.left, y: e.clientY - r.top };
+}
+function startDraw(e) { drawing = true; const p = getPos(e); sigCtx.beginPath(); sigCtx.moveTo(p.x, p.y); }
+function draw(e) { if (!drawing) return; const p = getPos(e); sigCtx.lineTo(p.x, p.y); sigCtx.stroke(); hasSignature = true; }
+function endDraw() { drawing = false; }
+function clearSig() { if (sigCtx) sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height); hasSignature = false; }
+
+async function generatePDF() {
+  if (!hasSignature) { alert('서명을 해주세요.'); return; }
+  const month = document.getElementById('signMonth').value;
+  const day = document.getElementById('signDay').value;
+  if (!month || !day) { alert('서명 날짜(월, 일)를 입력해 주세요.'); return; }
+  formData.month = month; formData.day = day;
+  const btn = document.getElementById('genBtn');
+  btn.disabled = true; btn.textContent = '생성 중... 잠시만 기다려주세요';
+  try {
+    await buildAndSavePDF();
+    hide('page3'); show('page4'); setStep(4);
+  } catch (e) {
+    alert('PDF 생성 오류: ' + e.message);
+  } finally {
+    btn.disabled = false; btn.innerHTML = '📄 PDF 생성 및 다운로드';
+  }
+}
+
+function buildHTMLContent() {
+  const c1ok = formData.consent1 === '동의함';
+  const c2ok = formData.consent2 === '동의함';
+  return `
+  <div id="pdf-content" style="width:794px;min-height:1123px;padding:48px 56px;font-family:'Noto Sans KR',Apple SD Gothic Neo,sans-serif;background:#fff;color:#111;font-size:13px;line-height:1.6">
+    <div style="text-align:center;margin-bottom:6px">
+      <div style="font-size:22px;font-weight:700;letter-spacing:-0.5px">CO-WEEK ACADEMY</div>
+      <div style="font-size:17px;font-weight:700;margin-top:4px">참가자 안전서약서</div>
+    </div>
+    <hr style="border:none;border-top:2px solid #111;margin:14px 0 18px">
+
+    <div style="font-weight:700;font-size:13px;margin-bottom:8px">■ 참가자 인적사항</div>
+    <table style="width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:18px">
+      <tr>
+        <td style="background:#f0f0f0;font-weight:700;padding:7px 10px;border:1px solid #bbb;width:30%">컨소시엄 소속(대학명)</td>
+        <td style="padding:7px 10px;border:1px solid #bbb">${formData.univ}</td>
+      </tr>
+      <tr>
+        <td style="background:#f0f0f0;font-weight:700;padding:7px 10px;border:1px solid #bbb">성명</td>
+        <td style="padding:7px 10px;border:1px solid #bbb;width:20%">${formData.name}</td>
+        <td style="background:#f0f0f0;font-weight:700;padding:7px 10px;border:1px solid #bbb;width:20%">생년월일</td>
+        <td style="padding:7px 10px;border:1px solid #bbb">${formData.birth}</td>
+      </tr>
+      <tr>
+        <td style="background:#f0f0f0;font-weight:700;padding:7px 10px;border:1px solid #bbb">연락처(H.P)</td>
+        <td style="padding:7px 10px;border:1px solid #bbb">${formData.phone}</td>
+        <td style="background:#f0f0f0;font-weight:700;padding:7px 10px;border:1px solid #bbb">비상연락처[관계]</td>
+        <td style="padding:7px 10px;border:1px solid #bbb">${formData.emergency || '-'}</td>
+      </tr>
+      <tr>
+        <td style="background:#f0f0f0;font-weight:700;padding:7px 10px;border:1px solid #bbb">기저질환/알레르기</td>
+        <td colspan="3" style="padding:7px 10px;border:1px solid #bbb">${formData.disease}</td>
+      </tr>
+    </table>
+
+    <div style="font-weight:700;font-size:13px;margin-bottom:8px">■ 동의 현황</div>
+    <table style="width:100%;border-collapse:collapse;font-size:12px;margin-bottom:6px">
+      <tr>
+        <td style="background:#f0f0f0;font-weight:700;padding:7px 10px;border:1px solid #bbb;width:55%">개인정보 수집·이용 동의</td>
+        <td style="padding:7px 10px;border:1px solid #bbb">
+          <span style="font-weight:700;color:${c1ok?'#0a6e1e':'#aaa'}">[${c1ok?'✓':' '}] 동의함</span>　　
+          <span style="color:${!c1ok?'#c00':'#aaa'}">[${!c1ok?'✓':' '}] 동의하지 않음</span>
+        </td>
+      </tr>
+      <tr>
+        <td style="background:#f0f0f0;font-weight:700;padding:7px 10px;border:1px solid #bbb">민감정보(기저질환/알레르기) 수집·이용 동의</td>
+        <td style="padding:7px 10px;border:1px solid #bbb">
+          <span style="font-weight:700;color:${c2ok?'#0a6e1e':'#aaa'}">[${c2ok?'✓':' '}] 동의함</span>　　
+          <span style="color:${!c2ok?'#c00':'#aaa'}">[${!c2ok?'✓':' '}] 동의하지 않음</span>
+        </td>
+      </tr>
+      <tr>
+        <td style="background:#f0f0f0;font-weight:700;padding:7px 10px;border:1px solid #bbb">OT 영상 시청 확인</td>
+        <td style="padding:7px 10px;border:1px solid #bbb">
+          <span style="font-weight:700;color:${formData.otCheck?'#0a6e1e':'#aaa'}">[${formData.otCheck?'✓':' '}] 시청 완료</span>
+        </td>
+      </tr>
+    </table>
+
+    <div style="font-weight:700;font-size:13px;margin:18px 0 8px">■ 서약 내용</div>
+    <ol style="padding-left:18px;font-size:12.5px;line-height:1.75;color:#222;margin-bottom:14px">
+      <li style="margin-bottom:6px"><strong>[공식 일정 준수]</strong> 행사 기간 중 주최 측의 안내 및 통제에 적극 협조하며, 공식 일정 외의 무단이탈 및 개별 행동을 하지 않겠습니다.</li>
+      <li style="margin-bottom:6px"><strong>[교통 및 이동 안전]</strong> 단체 이동 시 지정된 차량 및 동선을 준수하며, 개인차량 개별 이동이나 외부 무단 외출로 인해 발생하는 사고에 대한 책임은 본인에게 있음을 인정합니다.</li>
+      <li style="margin-bottom:6px"><strong>[숙소 및 야간 안전]</strong> 야간 소란 행위, 타인 숙소 무단 침입 등 타인에게 피해를 주는 행동을 하지 않으며, 배정된 숙소의 이용 규칙을 철저히 준수하겠습니다.</li>
+      <li style="margin-bottom:6px"><strong>[음주 및 규율 엄수]</strong> 행사 기간 중 과도한 음주, 도박, 폭력 등 안전을 위협하거나 대학생의 본분에 어긋나는 행위를 하지 않겠습니다.</li>
+      <li style="margin-bottom:6px"><strong>[비상 상황 보고]</strong> 본인 또는 동료에게 건강상의 이상 징후(발열, 부상, 급체 등)나 안전사고 발생 시, 인솔책임자 선생님에게 즉시 보고하겠습니다.</li>
+      <li><strong>[면책 조항 확인]</strong> 학교 측의 정당한 지시 및 안전 수칙을 위반하거나, 개인의 고의 또는 과실로 인해 발생한 사고·물품 분실에 대해서는 본인이 전적으로 책임을 지며 주최/학교 측에 이의를 제기하지 않겠습니다.</li>
+    </ol>
+
+    <div style="font-size:12.5px;color:#222;line-height:1.7;border:1px solid #ccc;padding:10px 14px;border-radius:6px;background:#fafafa;margin-bottom:20px">
+      본인은 위의 서약 내용을 성실히 이행할 것을 확인하며, 만약 위반할 경우 행사의 중도 퇴소 조치 및 향후 프로그램 참여 제한 등의 불이익을 감수할 것을 서약합니다.
+    </div>
+
+    <div style="text-align:center;font-size:14px;font-weight:700;margin-bottom:28px">
+      2026년 &nbsp;${formData.month}월 &nbsp;${formData.day}일
+    </div>
+
+    <div style="display:flex;align-items:flex-end;justify-content:center;gap:20px">
+      <div style="font-size:14px;font-weight:700">서약자 (학생) :</div>
+      <div style="text-align:center">
+        <img id="sigImg" style="height:60px;display:block;margin-bottom:2px">
+        <div style="border-top:1px solid #555;width:200px;padding-top:4px;font-size:11px;color:#666">(서명/인)</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+async function buildAndSavePDF() {
+  const sigDataUrl = sigCanvas.toDataURL('image/png');
+  const container = document.createElement('div');
+  container.innerHTML = buildHTMLContent();
+  document.body.appendChild(container);
+  container.querySelector('#sigImg').src = sigDataUrl;
+  await new Promise(r => setTimeout(r, 300));
+
+  const pdfEl = container.querySelector('#pdf-content');
+  const canvas = await html2canvas(pdfEl, {
+    scale: 2,
+    useCORS: true,
+    backgroundColor: '#ffffff',
+    logging: false
+  });
+  document.body.removeChild(container);
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const imgData = canvas.toDataURL('image/jpeg', 0.95);
+  const W = 210, H = 297;
+  const ratio = canvas.height / canvas.width;
+  const imgH = W * ratio;
+
+  if (imgH <= H) {
+    doc.addImage(imgData, 'JPEG', 0, 0, W, imgH);
+  } else {
+    let y = 0;
+    const pageH = canvas.width * (H / W);
+    while (y < canvas.height) {
+      const tmpCanvas = document.createElement('canvas');
+      tmpCanvas.width = canvas.width;
+      tmpCanvas.height = Math.min(pageH, canvas.height - y);
+      const tmpCtx = tmpCanvas.getContext('2d');
+      tmpCtx.drawImage(canvas, 0, -y);
+      if (y > 0) doc.addPage();
+      doc.addImage(tmpCanvas.toDataURL('image/jpeg', 0.95), 'JPEG', 0, 0, W, H);
+      y += pageH;
+    }
+  }
+
+  savedDoc = doc;
+  const fname = '안전서약서_' + formData.name + '_' + formData.univ + '.pdf';
+  formData.fname = fname;
+  document.getElementById('pdfFilename').textContent = fname;
+  doc.save(fname);
+}
+
+function redownload() {
+  if (savedDoc) {
+    savedDoc.save(formData.fname || '안전서약서.pdf');
+  } else {
+    alert('이전 단계로 돌아가 다시 생성해 주세요.');
+  }
+}
+</script>
+</body>
+</html>
